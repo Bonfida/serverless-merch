@@ -1,2 +1,5 @@
 node_modules/
 bin/
+vendor_config.json
+vendor_rsa
+vendor_rsa.pub

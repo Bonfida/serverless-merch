@@ -8,16 +8,16 @@ import inquirer from "inquirer";
  */
 const KEY_SIZE = 4_096;
 
-export const generateKeypair = (rsaKeypair: NodeRSA | undefined) => {
+export const generateKeypair = () => {
   const key = new NodeRSA({ b: KEY_SIZE });
-
-  rsaKeypair = key;
 
   const pubkey = key.exportKey("public");
   const privatekey = key.exportKey("private");
 
   fs.writeFileSync("./vendor_rsa.pub", pubkey);
   fs.writeFileSync("./vendor_rsa", privatekey);
+
+  return key;
 };
 
 export const loadKeyPair = (path?: string) => {
@@ -34,11 +34,11 @@ export const loadKeyPair = (path?: string) => {
 };
 
 enum RsaOptions {
-  Generate = "Generate RSA key pair",
-  Load = "Load existing RSA key pair",
+  Generate = "🆕 Generate RSA key pair \n",
+  Load = "💾 Load existing RSA key pair \n",
 }
 
-export const handleRsa = async (rsaKeypair: NodeRSA | undefined) => {
+export const handleRsa = async () => {
   const existingKey = loadKeyPair();
   if (existingKey === undefined) {
     console.log(`Existing keypair detected`);
@@ -50,10 +50,27 @@ export const handleRsa = async (rsaKeypair: NodeRSA | undefined) => {
     choices: [RsaOptions.Generate, RsaOptions.Load],
   });
 
-  switch (answers.rsa) {
-    case RsaOptions.Generate:
-      const spinner = createSpinner("Generating RSA keypair...").start();
-      generateKeypair(rsaKeypair);
-      spinner.success({ text: "Keypair generated" });
+  if (answers.rsa === RsaOptions.Generate) {
+    const spinner = createSpinner("Generating RSA keypair...").start();
+    const keypair = generateKeypair();
+    spinner.success({ text: "Keypair generated" });
+    return keypair;
+  }
+
+  if (answers.rsa === RsaOptions.Load) {
+    const answers = await inquirer.prompt({
+      name: "path",
+      type: "input",
+      message: "Keypair path?",
+    });
+
+    const spinner = createSpinner("Loading RSA keypair...").start();
+    const loadedKeypair = loadKeyPair(answers.path);
+    if (!loadedKeypair) {
+      spinner.stop({ text: "Keypair not found" });
+      process.exit(1);
+    }
+    spinner.success({ text: "Keypair loaded" });
+    return loadedKeypair;
   }
 };
