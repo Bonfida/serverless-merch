@@ -75,7 +75,7 @@ function App() {
       {step === 0 && <Hoodie setStep={setStep} />}
       {step === 1 && <Customization setStep={setStep} />}
       {step === 2 && <Shipping setStep={setStep} />}
-      {step === 3 && <Confirmation setStep={setStep} />}
+      {[3, 4].includes(step) && <Confirmation setStep={setStep} />}
       <Footer />
     </div>
   );

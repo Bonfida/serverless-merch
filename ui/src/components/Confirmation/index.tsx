@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Card from "../Card";
 import { useLocalStorageState } from "ahooks";
 import { useEffect } from "react";
@@ -13,6 +14,11 @@ import { MEMO_ID } from "../../utils/memo";
 import { toast } from "react-toastify";
 import { useWallet, useConnection } from "@solana/wallet-adapter-react";
 import { MINT, COLLECT_KEY, PRICE } from "../../utils/settings";
+import WalletConnect from "../WalletConnect";
+import Loading from "../Loading";
+import { CheckCircleIcon } from "@heroicons/react/solid";
+import Urls from "../../utils/urls";
+import { abbreviate } from "../../utils/transactions";
 
 const styles = {
   input:
@@ -55,6 +61,9 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
   // Transaction signature
   const [signature, setSignature] = useLocalStorageState<string>("signature");
 
+  // Loading
+  const [loading, setLoading] = useState(false);
+
   const ok =
     size &&
     size.name &&
@@ -70,12 +79,14 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
     postalCode &&
     phone;
 
+  const hasOrdered = !!signature;
+
   useEffect(() => {
     if (!ok) {
       localStorage.clear();
       setStep(0);
     }
-  }, []);
+  }, [ok, setStep]);
 
   const handle = async () => {
     if (!ok) return;
@@ -96,6 +107,7 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
       customization: domain || "",
     };
     try {
+      setLoading(true);
       // Order is encrypted before being uploaded to IPFS
       const encryptedOrder = encrypt(order);
 
@@ -123,12 +135,15 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
       const sig = await sendTransaction(tx, connection);
       await connection.confirmTransaction(sig);
 
-      console.log(signature);
+      console.log(`Order signature: ${sig}`);
       setSignature(sig);
 
       toast.success("Transaction confirmed 👌");
+      setStep(4);
     } catch (err) {
       toast.error("Transaction failed 🤯");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -143,24 +158,43 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
               Order confirmation
             </h2>
 
-            <div className="grid grid-cols-1 mt-4 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
+            <div className="grid grid-cols-1 mt-4 gap-y-6">
+              {/* Hoodie details */}
+              <h2 className="text-lg font-medium text-gray-900">
+                Order summary
+              </h2>
               <Row label="Size" value={size?.name} />
-              {domain && (
-                <div>
-                  <span className={styles.label}>Domain</span>
-                  <span className="pl-5 mt-1 font-500">{domain}</span>
-                </div>
-              )}
+              {domain && <Row label="Domain" value={domain + ".sol"} />}
+
+              {/* Contact details */}
+              <h2 className="pt-3 text-lg font-medium text-gray-900 border-t border-gray-200">
+                Contact details
+              </h2>
+              <Row label="Email" value={email} />
+              <Row label="Phone" value={phone} />
+
+              {/* Shipping details */}
+              <h2 className="pt-3 text-lg font-medium text-gray-900 border-t border-gray-200">
+                Shipping details
+              </h2>
+              <Row label="First name" value={firstName} />
+              <Row label="Last name" value={lastName} />
+              <Row label="Address" value={address} />
+              <Row label="Apartment" value={apartment} />
+              <Row label="City" value={city} />
+              <Row label="Country" value={country} />
+              <Row label="State" value={state} />
+              <Row label="Postal code" value={postalCode} />
             </div>
           </div>
-          {connected && (
+          {!hasOrdered && connected && (
             <>
               <button
                 onClick={handle}
                 type="submit"
                 className={styles.nextButton}
               >
-                Next
+                {loading ? <Loading /> : "Confirm"}
               </button>
               <button
                 onClick={() => setStep(2)}
@@ -169,6 +203,28 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
               >
                 Back
               </button>
+            </>
+          )}
+          {!hasOrdered && !connected && (
+            <div className="flex flex-row justify-center mt-5">
+              <WalletConnect />
+            </div>
+          )}
+          {hasOrdered && (
+            <>
+              <div className="flex flex-row justify-center pt-5 mt-10 border-t border-gray-200">
+                <h2 className="mt-1 text-lg font-bold">Order confirmed</h2>{" "}
+                <CheckCircleIcon className="w-8 text-sm text-green-400" />
+              </div>
+              <div className="flex flex-row justify-center mt-5 font-bold text-gray-500 underline underline-offset-2 text-md">
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={Urls.explorerSignaturePrefix + signature}
+                >
+                  {abbreviate(signature)}
+                </a>
+              </div>
             </>
           )}
         </div>
@@ -184,7 +240,7 @@ const Row = ({ label, value }: { label: string; value: State }) => {
   return (
     <div>
       <span className={styles.label}>{label}</span>
-      <span className="pl-5 mt-1 font-500">{value}</span>
+      <div className="pt-1 pl-5 text-lg font-bold">{value}</div>
     </div>
   );
 };

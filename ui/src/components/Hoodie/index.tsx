@@ -156,7 +156,7 @@ export default function Hoodie({
                 Add to bag
               </button>
 
-              <p className="absolute text-center top-4 left-4 sm:static sm:mt-8">
+              <p className="mt-4 text-center top-4 left-4">
                 <a
                   href={product.href}
                   className="font-medium text-indigo-600 hover:text-indigo-500"

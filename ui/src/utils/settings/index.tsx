@@ -5,7 +5,7 @@ export const MINT = new PublicKey(
 );
 
 export const COLLECT_KEY = new PublicKey(
-  "J4QpTEuCU5ARzTX4Bx6P7QJ4Nn9VvouZEXCsZP6h3pdt"
+  "DmSyHDSM9eSLyvoLsPvDr5fRRFZ7Bfr3h3ULvWpgQaq7"
 );
 
 export const PRICE = 0; // With decimals
