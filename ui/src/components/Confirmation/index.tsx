@@ -111,9 +111,7 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
       // Order is encrypted before being uploaded to IPFS
       const encryptedOrder = encrypt(order);
 
-      const hash = await upload(
-        new Blob([Buffer.from(encryptedOrder, "base64")])
-      );
+      const hash = await upload(encryptedOrder);
 
       console.log(`Uploaded on IPFS ${hash}`);
 
@@ -141,6 +139,7 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
       toast.success("Transaction confirmed 👌");
       setStep(4);
     } catch (err) {
+      console.log(err);
       toast.error("Transaction failed 🤯");
     } finally {
       setLoading(false);

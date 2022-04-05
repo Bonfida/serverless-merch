@@ -68,10 +68,14 @@ export const filterTxs = async (
         continue;
       }
       preAmount = parseInt(
-        response.meta.preTokenBalances[accountIndex].uiTokenAmount.amount
+        response.meta.preTokenBalances.find(
+          (e) => e.accountIndex === accountIndex
+        )?.uiTokenAmount.amount || "0"
       );
       postAmount = parseInt(
-        response.meta.postTokenBalances[accountIndex].uiTokenAmount.amount
+        response.meta.postTokenBalances.find(
+          (e) => e.accountIndex === accountIndex
+        )?.uiTokenAmount.amount || "-1"
       );
     } else {
       // Native SOL
@@ -88,30 +92,27 @@ export const filterTxs = async (
 
     // Verify the conditions
     const resolved = await Promise.all(
-      CONDITIONS.map((fn) => fn(new PublicKey(config.address)))
+      CONDITIONS.map((fn) => fn(PublicKey.default))
     );
     const conditionsMet = resolved.reduce((acc, x) => acc && x);
+
     if (!conditionsMet) {
       invalid.push(tx);
       continue;
     }
 
-    //
-    if (!response?.meta?.logMessages) {
+    const match = tx.memo?.match(REGEX);
+
+    if (match?.groups?.hash) {
+      // Valid memo
+      valid.push({ tx, hash: match.groups.hash });
+    } else {
+      // Invalid memo
       invalid.push(tx);
       continue;
     }
-
-    // Check the memo
-    for (let log of response?.meta?.logMessages) {
-      const result = log.match(REGEX);
-      if (result?.groups?.hash) {
-        valid.push({ tx, hash: result.groups.hash });
-      } else {
-        invalid.push(tx);
-      }
-    }
   }
+
   return { valid, invalid };
 };
 
@@ -121,14 +122,20 @@ export const fetchIpfs = async (
 ) => {
   const decryptedOrders: { tx: ConfirmedSignatureInfo; decrypted: Object }[] =
     [];
-
+  const errors: { tx: ConfirmedSignatureInfo; error: string }[] = [];
   for (let { tx, hash } of valid) {
-    const { data } = await axios.get(makeUrl(hash));
-    const decrypted = JSON.parse(rsaKeypair.decrypt(data).toString());
-    decryptedOrders.push({ tx, ...decrypted });
+    try {
+      const { data } = await axios.get(makeUrl(hash));
+      const decrypted = JSON.parse(
+        rsaKeypair.decrypt(Buffer.from(data, "base64")).toString()
+      );
+      decryptedOrders.push({ tx, ...decrypted });
+    } catch (err) {
+      errors.push({ tx, error: JSON.stringify(err) });
+    }
   }
 
-  return decryptedOrders;
+  return { decryptedOrders, errors };
 };
 
 export const fetchOrders = async (
@@ -144,14 +151,16 @@ export const fetchOrders = async (
   const { valid, invalid } = await filterTxs(config, allTxs);
 
   spinner.update({ text: "Decrypting valid orders..." });
-  const decryptedOrders = await fetchIpfs(rsaKeypair, valid);
+  const { decryptedOrders, errors } = await fetchIpfs(rsaKeypair, valid);
 
   const decryptedCsv = new ObjectsToCsv(decryptedOrders);
   const invalidCsv = new ObjectsToCsv(invalid);
+  const errorsCsv = new ObjectsToCsv(errors);
 
   spinner.update({ text: "Saving orders to disk..." });
   await decryptedCsv.toDisk("./valid_orders.csv", { append: true });
   await invalidCsv.toDisk("./invalid_orders.csv", { append: true });
+  await errorsCsv.toDisk("./errors_orders.csv", { append: true });
 
   spinner.success({ text: "All order saved to disk (csv)" });
 };

@@ -1,4 +1,7 @@
 import { PublicKey } from "@solana/web3.js";
+import { getNftForOwner } from "@bonfida/name-tokenizer";
+import { findOwnedNameAccountsForUser } from "./name-service";
+import { connection } from "./connection";
 
 /**
  * A `Condition` is an async function that takes a public key and returns a boolean
@@ -8,6 +11,11 @@ import { PublicKey } from "@solana/web3.js";
 type Condition = (arg: PublicKey) => Promise<boolean>;
 
 export const domainsCondition = async (arg: PublicKey) => {
+  return true;
+  const names = await findOwnedNameAccountsForUser(connection, arg);
+  if (names.length > 0) return true;
+  const tokenized = await getNftForOwner(connection, arg);
+  if (tokenized.length > 0) return true;
   return false;
 };
 

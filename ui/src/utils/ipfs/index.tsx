@@ -3,7 +3,7 @@ import axios from "axios";
 export const URL_UPLOAD = "https://ipfs.infura.io:5001/api/v0/add";
 export const URL_PIN = "https://ipfs.infura.io:5001/api/v0/pin/add?arg=/ipfs/";
 
-export const upload = async (file: Blob) => {
+export const upload = async (file: string) => {
   const formData = new FormData();
   formData.append("file", file);
 

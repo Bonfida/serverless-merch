@@ -4,6 +4,6 @@ import { publicKey } from "./pubkey";
 
 export const encrypt = (info: Order) => {
   const str = JSON.stringify(info);
-  const key = new NodeRSA(publicKey);
+  const key = new NodeRSA().importKey(publicKey, "pkcs8-public");
   return key.encrypt(str).toString("base64");
 };
