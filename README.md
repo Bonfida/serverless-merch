@@ -178,3 +178,14 @@ REACT_APP_CONNECTION= The RPC URL for your production build
 REACT_APP_COLLECT_FEES= The address used to collect fees
 GENERATE_SOURCEMAP=false
 ```
+
+You **must** also specify your RSA public key in `ui/src/rsa/pubkey.tsx`
+
+```ts
+/**
+ * THIS IS AN EXAMPLE!
+ * REPLACE THIS WITH YOUR OWN PUBLIC KEY 🚨
+ */
+
+export const publicKey = `-----BEGIN PUBLIC KEY----- ... ----END PUBLIC KEY-----`;
+```
