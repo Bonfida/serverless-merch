@@ -48,11 +48,11 @@ git clone git@github.com:Bonfida/serverless-merch.git
 cd serverless-merch
 ```
 
-This repository aims to provide an easy way to Solana communities to create and distribute merch to their communities. It is made of:
+This repository aims to provide an easy way for Solana communities to create and distribute merch to their communities. It is composed of:
 
 - A command line interface (CLI) that can be used to:
-  - Fetch orders and save them on .csv file
-  - Create vendor configuration file
+  - Fetch orders and save them as a .csv file
+  - Create a vendor configuration file
   - Create a RSA keypair
 - A demo UI:
   - Built with React + Typescript + Tailwind
@@ -62,19 +62,19 @@ This repository aims to provide an easy way to Solana communities to create and 
 <img src="assets/overview.png" />
 <br />
 
-The program works a follow:
+The program works as follows:
 
 1. User enters shipping information in the UI
 2. User information is encrypted with the RSA publickey of the vendor
-3. The **encrypted** data is uploaded on IPFS
-4. The user send a transaction made of
+3. The **encrypted** data is uploaded to IPFS
+4. The user sends a transaction composed of
    - Instruction 1: A token transfer to the vendor address
-   - Instruction 2: A Memo program instruction with the IPFS CID
-5. The vendor fetches all the transaction made to it's fee address
+   - Instruction 2: A Memo program instruction logging the IPFS CID
+5. The vendor fetches all the transactions made to its fee address
 6. Transactions are parsed:
    - Verify the token amount transfered
    - Extract the IFPS CID
-   - Optional: Verify conditions on the user (set by the vendor)
+   - Optional: Verify that a user meets a set of vendor-defined conditions
 7. Fetch encrypted data from IPFS
 8. Decrypt data and save to disk
 
@@ -95,7 +95,7 @@ yarn && yarn dev
 <h3 align="center">Conditions</h3>
 <br />
 
-A vendor can set arbitrary conditions on users that submit orders. For instance this can used to verify that the order was submitted by a user that hold a particular NFT, has a certain amount of tokens or own domain names.
+A vendor can set arbitrary conditions that users should meet to be able to submit orders. For instance, this can be used to verify that the order was submitted by a user that holds a particular NFT, has a certain amount of tokens or owns domain names.
 
 A condition is defined as:
 
@@ -114,11 +114,11 @@ export const CONDITIONS: Condition[] = [condition_1, condition_1];
 <h3 align="center">Fetching orders</h3>
 <br />
 
-Fetching submitted orders can be done with the CLI. The results will be saved on disk in 3 files:
+Fetching submitted orders can be done via the CLI. The results will be saved on disk in 3 files:
 
 - `errors_orders.csv`: Orders that could not be decrypted
 - `invalid_orders.csv`: Orders that failed for one of the following reason
-  - User did not send enough enough tokens (i.e did not pay the right price)
+  - User did not send enough tokens (i.e did not pay the right price)
   - User does not meet the conditions set by the vendor
   - RPC connection error while fetching transaction information
   - Could not find the memo in the transaction
@@ -129,9 +129,9 @@ Fetching submitted orders can be done with the CLI. The results will be saved on
 <h3 align="center">Generating vending configuration</h3>
 <br />
 
-A vendor config is a RSA keypair i.e a set of public and private keys. The CLI can be used to create a new keypair or load an existing keypair from it's path. Keypairs generated from the CLI have a key length of 4,096 bytes.
+A vendor config is a RSA keypair i.e a set of public and private keys. The CLI can be used to create a new keypair or load an existing keypair from its path. Keypairs generated from the CLI have a key length of 4,096 bytes.
 
-This keypair will be used to encrypt the the user information and decrypt them when fetching orders.
+This keypair will be used to encrypt user information at submission and then decrypt it when fetching orders.
 
 <br />
 <a name="payment-config"></a>
@@ -147,7 +147,7 @@ export interface VendorConfig {
 }
 ```
 
-For example if you want to receive USDC to `3emsAVdmGKERbHjmGfQ6oZ1e35dkf5iYcS6U4CPKFVaa` and that the price of each item is 20 USDC (USDC has 6 decimals) the config file will be
+For example if you want to receive USDC at `3emsAVdmGKERbHjmGfQ6oZ1e35dkf5iYcS6U4CPKFVaa` and the price of each item is 20 USDC (USDC has 6 decimals) the config file will be
 
 ```json
 {
@@ -156,7 +156,7 @@ For example if you want to receive USDC to `3emsAVdmGKERbHjmGfQ6oZ1e35dkf5iYcS6U
 }
 ```
 
-The CLI can be used to create a new configuration or load an existing JSON file from it's path.
+The CLI can be used to create a new configuration or load an existing JSON file from its path.
 
 <br />
 <a name="ui"></a>
