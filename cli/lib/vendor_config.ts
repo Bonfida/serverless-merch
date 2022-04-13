@@ -46,7 +46,7 @@ export const handleVendorConfig = async () => {
         console.log("Invalid address");
         return;
       }
-
+      console.log(`\n`);
       const priceAnswer = await inquirer.prompt({
         name: "price",
         type: "input",
@@ -63,7 +63,7 @@ export const handleVendorConfig = async () => {
       const config: VendorConfig = { address: pubkeyAnswer.pubkey, price };
 
       fs.writeFileSync("./config.json", JSON.stringify(config));
-      console.log("Config created");
+      console.log("\n Config created ✨ \n");
 
       return config;
     } catch (err) {

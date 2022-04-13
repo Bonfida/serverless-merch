@@ -27,12 +27,13 @@ const sleep = (ms = 2000) => new Promise((r) => setTimeout(r, ms));
 
 enum WelcomeOptions {
   FetchOrders = "🚚 Fetch orders \n",
-  GenerateRsa = "🔐 Generate vendor RSA keys \n",
-  GeneratePayment = "💰 Generate payment config \n",
+  GenerateRsa = "🔐 Vendor RSA config \n",
+  GeneratePayment = "💰 Payment config \n",
   Exit = "👋 Exit",
 }
 
 export async function welcome() {
+  console.clear();
   figlet(`Serverless merch`, (err, data) => {
     console.log(gradient.pastel.multiline(data + "\n"));
   });
@@ -61,7 +62,10 @@ export async function welcome() {
         console.log(`RSA keypair not found - Please load or create one \n`);
         continue;
       } else if (!vendorConfig) {
-        console.log(`Vendor config not found - Please load or create one \n`);
+        console.clear();
+        console.log(
+          `❌ Vendor config not found - Please load or create one \n`
+        );
         continue;
       } else {
         await fetchOrders(rsaKeypair, vendorConfig);

@@ -53,7 +53,7 @@ export const handleRsa = async () => {
   if (answers.rsa === RsaOptions.Generate) {
     const spinner = createSpinner("Generating RSA keypair...").start();
     const keypair = generateKeypair();
-    spinner.success({ text: "Keypair generated" });
+    spinner.success({ text: "Keypair generated \n" });
     return keypair;
   }
 
@@ -67,10 +67,10 @@ export const handleRsa = async () => {
     const spinner = createSpinner("Loading RSA keypair...").start();
     const loadedKeypair = loadKeyPair(answers.path);
     if (!loadedKeypair) {
-      spinner.stop({ text: "Keypair not found" });
+      spinner.stop({ text: "Keypair not found \n" });
       process.exit(1);
     }
-    spinner.success({ text: "Keypair loaded" });
+    spinner.success({ text: "Keypair loaded \n" });
     return loadedKeypair;
   }
 };
