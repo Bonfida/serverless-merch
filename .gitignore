@@ -5,3 +5,7 @@ vendor_rsa
 vendor_rsa.pub
 *.csv
 config.json
+
+.env.*
+
+.DS_Store

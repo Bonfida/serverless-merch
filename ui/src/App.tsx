@@ -1,5 +1,4 @@
-import React, { useMemo } from "react";
-import "./App.css";
+import { useMemo } from "react";
 import Steps from "./components/Steps";
 import Hoodie from "./components/Hoodie";
 import { useLocalStorageState } from "ahooks";
@@ -25,7 +24,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // Default styles that can be overridden by your app
-require("@solana/wallet-adapter-react-ui/styles.css");
+require("./wallet.css");
 
 const WrapApp = () => {
   // You can also provide a custom RPC endpoint.
@@ -54,7 +53,7 @@ const WrapApp = () => {
 
   return (
     <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect={false}>
+      <WalletProvider wallets={wallets} autoConnect={true}>
         <WalletModalProvider>
           <App />
         </WalletModalProvider>
