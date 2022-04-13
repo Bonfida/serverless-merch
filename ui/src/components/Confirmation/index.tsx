@@ -131,10 +131,9 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
       tx.add(ix);
 
       const sig = await sendTransaction(tx, connection);
-      await connection.confirmTransaction(sig);
-
       console.log(`Order signature: ${sig}`);
       setSignature(sig);
+      await connection.confirmTransaction(sig);
 
       toast.success("Transaction confirmed 👌");
       setStep(4);
