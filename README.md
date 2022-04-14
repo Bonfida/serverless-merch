@@ -17,7 +17,9 @@ Easily create and distribute merch to your community without any backend server
 </strong>
 </p>
 
+<p align="center">
 <img src="assets/cli.png" />
+</p>
 
 <div align="center">
 <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" />
@@ -59,7 +61,9 @@ This repository aims to provide an easy way for Solana communities to create and
   - Can be adapted to any merch/goodie
 
 <br />
-<img src="assets/overview.png" />
+<p align="center">
+<img width="80%" src="assets/overview.png" />
+</p>
 <br />
 
 The program works as follows:
