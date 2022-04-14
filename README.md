@@ -40,6 +40,11 @@ Easily create and distribute merch to your community without any backend server
    - [Generator payment config](#fetching-orders)
 3. [UI](#ui)
 
+<h2 align="center">Disclaimer</h2>
+
+- This repository is in active development, so all APIs are subject to change.
+- This code is unaudited. Use at your own risk.
+
 <br />
 <a name="introduction"></a>
 <h2 align="center">Introduction</h2>
