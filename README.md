@@ -62,7 +62,7 @@ This repository aims to provide an easy way for Solana communities to create and
 
 <br />
 <p align="center">
-<img width="80%" src="assets/overview.png" />
+<img width="95%" src="assets/overview.png" />
 </p>
 <br />
 
