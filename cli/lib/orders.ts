@@ -91,9 +91,8 @@ export const filterTxs = async (
     }
 
     // Verify the conditions
-    const resolved = await Promise.all(
-      CONDITIONS.map((fn) => fn(PublicKey.default))
-    );
+    const buyer = response.transaction.message.accountKeys[0];
+    const resolved = await Promise.all(CONDITIONS.map((fn) => fn(buyer)));
     const conditionsMet = resolved.reduce((acc, x) => acc && x);
 
     if (!conditionsMet) {

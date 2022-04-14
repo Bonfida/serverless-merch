@@ -11,7 +11,6 @@ import { connection } from "./connection";
 type Condition = (arg: PublicKey) => Promise<boolean>;
 
 export const domainsCondition = async (arg: PublicKey) => {
-  return true;
   const names = await findOwnedNameAccountsForUser(connection, arg);
   if (names.length > 0) return true;
   const tokenized = await getNftForOwner(connection, arg);
