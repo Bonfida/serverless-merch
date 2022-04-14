@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@bonfida/spl-name-service": "^0.1.27",
+    "@bonfida/spl-name-service": "^0.1.30",
     "@headlessui/react": "^1.5.0",
     "@heroicons/react": "^1.0.6",
     "@solana/buffer-layout": "^4.0.0",
