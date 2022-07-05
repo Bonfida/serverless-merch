@@ -58,23 +58,23 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
     if (!email || !validator.isEmail(email)) {
       return toast.info("Invalid email");
     }
-    if (!firstName || !validator.isAlpha(firstName)) {
+    if (!firstName || !validator.isAlpha(firstName.split(" ").join(""))) {
       return toast.info("Invalid first name");
     }
-    if (!lastName || !validator.isAlpha(lastName)) {
+    if (!lastName || !validator.isAlpha(lastName.split(" ").join(""))) {
       return toast.info("Invalid last name");
     }
     if (!address) {
       return toast.info("Invalid address");
     }
     // Do not validate apartment
-    if (!city || !validator.isAlpha(city)) {
+    if (!city || !validator.isAlpha(city.split(" ").join(""))) {
       return toast.info("Invalid city");
     }
     if (!country) {
       return toast.info("Invalid country");
     }
-    if (!state || !validator.isAlpha(state)) {
+    if (!state || !validator.isAlpha(state.split(" ").join(""))) {
       return toast.info("Invalid state");
     }
     if (!postalCode || !validator.isPostalCode(postalCode, "any")) {
