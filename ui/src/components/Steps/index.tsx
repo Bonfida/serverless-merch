@@ -2,7 +2,7 @@ import { CheckIcon } from "@heroicons/react/solid";
 
 const steps = [
   { id: 0, name: "Select size" },
-  { id: 1, name: "Customization" },
+  { id: 1, name: "Verification" },
   { id: 2, name: "Shipping" },
   { id: 3, name: "Confirmation" },
 ];

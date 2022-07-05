@@ -129,7 +129,7 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                   <div className="mt-1">
                     <input
                       value={firstName}
-                      onChange={(e) => setFirstName(e.target.value.trim())}
+                      onChange={(e) => setFirstName(e.target.value)}
                       type="text"
                       id="first-name"
                       name="first-name"
@@ -146,7 +146,7 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                   <div className="mt-1">
                     <input
                       value={lastName}
-                      onChange={(e) => setLastName(e.target.value.trim())}
+                      onChange={(e) => setLastName(e.target.value)}
                       type="text"
                       id="last-name"
                       name="last-name"
@@ -163,7 +163,7 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                   <div className="mt-1">
                     <input
                       value={address}
-                      onChange={(e) => setAddress(e.target.value.trim())}
+                      onChange={(e) => setAddress(e.target.value)}
                       type="text"
                       name="address"
                       id="address"
@@ -180,7 +180,7 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                   <div className="mt-1">
                     <input
                       value={apartment}
-                      onChange={(e) => setApartment(e.target.value.trim())}
+                      onChange={(e) => setApartment(e.target.value)}
                       type="text"
                       name="apartment"
                       id="apartment"
@@ -196,7 +196,7 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                   <div className="mt-1">
                     <input
                       value={city}
-                      onChange={(e) => setCity(e.target.value.trim())}
+                      onChange={(e) => setCity(e.target.value)}
                       type="text"
                       name="city"
                       id="city"
@@ -242,7 +242,7 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                   <div className="mt-1">
                     <input
                       value={state}
-                      onChange={(e) => setState(e.target.value.trim())}
+                      onChange={(e) => setState(e.target.value)}
                       type="text"
                       name="region"
                       id="region"
@@ -259,7 +259,7 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                   <div className="mt-1">
                     <input
                       value={postalCode}
-                      onChange={(e) => setPostalCode(e.target.value.trim())}
+                      onChange={(e) => setPostalCode(e.target.value)}
                       type="text"
                       name="postal-code"
                       id="postal-code"
@@ -276,7 +276,7 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                   <div className="mt-1">
                     <input
                       value={phone}
-                      onChange={(e) => setPhone(e.target.value.trim())}
+                      onChange={(e) => setPhone(e.target.value)}
                       type="text"
                       name="phone"
                       id="phone"

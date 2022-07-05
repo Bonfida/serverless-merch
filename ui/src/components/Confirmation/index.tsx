@@ -43,6 +43,7 @@ interface Size {
 }
 
 const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
+  const [checked, setChecked] = useState(false);
   const { publicKey, connected, sendTransaction } = useWallet();
   const { connection } = useConnection();
 
@@ -151,14 +152,15 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
 
       const sig = await sendTransaction(tx, connection);
       console.log(`Order signature: ${sig}`);
-      setSignature(sig);
-      await connection.confirmTransaction(sig);
 
-      toast.success("Transaction confirmed 👌");
+      await connection.confirmTransaction(sig, "confirmed");
+      setSignature(sig);
+
+      toast.success(<p className="text-xs">Transaction confirmed 👌</p>);
       setStep(4);
     } catch (err) {
       console.log(err);
-      toast.error("Transaction failed 🤯");
+      toast.error(<p className="text-xs">Transaction failed 🤯</p>);
     } finally {
       setLoading(false);
     }
@@ -211,7 +213,19 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
           </div>
           {!hasOrdered && connected && (
             <>
+              <div className="flex items-center mt-4 ml-2 space-x-4">
+                <input
+                  onChange={() => setChecked((prev) => !prev)}
+                  checked={checked}
+                  type="checkbox"
+                />
+
+                <p className="font-semibold">
+                  I confirm that the information is correct
+                </p>
+              </div>
               <button
+                disabled={!checked}
                 onClick={handle}
                 type="submit"
                 className={styles.nextButton}

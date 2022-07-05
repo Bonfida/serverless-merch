@@ -2,18 +2,13 @@ import { CheckCircleIcon } from "@heroicons/react/solid";
 import { Dialog } from "@headlessui/react";
 
 const conditions = [
-  { explanation: "You must hold at least one Bonfida Wolve NFT" },
-  {
-    explanation:
-      "The holding check is done when order is placed but also when the order is processed",
-  },
-  {
-    explanation:
-      "If you do not hold the NFT when the order is processed, your order will be cancelled and funds will be returned",
-  },
-  {
-    explanation: "Orders will be processed on xxxxxxx",
-  },
+  "Bonfida will not be held responsible for users typing in a wrong address or making a mistake when doing so. Please ensure you double-check your shipping details before confirming. You will not be able to change the address",
+  "Bonfida will not be held responsible for the merchandise being lost during shipping",
+  "Merchandise is restricted to one product per wallet address",
+  "NFT holdings will be verified during ordering and processing. If no NFT is detected, the order will be canceled and your funds will be returned.",
+  "Once an order is placed, it cannot be canceled, except for the circumstance explained above",
+  "Placing an order will only cost a small gas fee in SOL",
+  "Merchandise will take approximately 15 days to manufacture and delivery time will be dependent on your location",
 ];
 
 export const DetailsDialog = ({
@@ -30,10 +25,10 @@ export const DetailsDialog = ({
       open={isOpen}
       onClose={() => setIsOpen(false)}
     >
-      <div className="px-10 py-8 text-center text-black rounded-lg bg-slate-100">
+      <div className="px-10 py-8 text-center text-black rounded-lg bg-white shadow-2xl max-w-[600px]">
         <Dialog.Panel>
           <Dialog.Title className="text-xl font-bold">
-            Bonfida Cap - Details
+            Bonfida Cap - Terms
           </Dialog.Title>
 
           <div>
@@ -44,8 +39,8 @@ export const DetailsDialog = ({
                   key={`condition-${idx}`}
                 >
                   <CheckCircleIcon className="w-6 h-6 text-violet-700" />
-                  <p className="w-full text-sm font-bold text-left md:text-lg">
-                    {e.explanation}
+                  <p className="w-full text-xs font-semibold text-left md:text-sm">
+                    {e}
                   </p>
                 </div>
               );

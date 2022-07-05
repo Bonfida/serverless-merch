@@ -15,7 +15,6 @@ import {
   SolletWalletAdapter,
 } from "@solana/wallet-adapter-wallets";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import Customization from "./components/Customization";
 import Shipping from "./components/Shipping";
 import Confirmation from "./components/Confirmation";
 import Footer from "./components/Footer";

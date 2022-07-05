@@ -4,7 +4,6 @@ import clsx from "clsx";
 import Card from "../Card";
 import { useState } from "react";
 import { DetailsDialog } from "../Details";
-import { createImportSpecifier } from "typescript";
 
 const product = {
   name: "Bonfida - Cap",
