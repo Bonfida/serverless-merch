@@ -55,7 +55,13 @@ export const handleVendorConfig = async () => {
 
       const price = parseFloat(priceAnswer.price);
 
-      if (!price || isNaN(price) || !isFinite(price) || price <= 0) {
+      if (
+        price === undefined ||
+        price === null ||
+        isNaN(price) ||
+        !isFinite(price) ||
+        price < 0
+      ) {
         console.log("Invalid price");
         return;
       }
