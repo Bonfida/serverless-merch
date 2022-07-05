@@ -11,6 +11,7 @@ import {
   XCircleIcon,
 } from "@heroicons/react/solid";
 import Loading from "../Loading";
+import Urls from "../../utils/urls";
 
 export const SelectNft = ({ setStep }: { setStep: (arg: number) => void }) => {
   const { connection } = useConnection();
@@ -64,14 +65,25 @@ export const SelectNft = ({ setStep }: { setStep: (arg: number) => void }) => {
           )}
           {connected && (
             <div>
-              <button
-                disabled={!verified}
-                onClick={() => setStep(2)}
-                className="flex items-center justify-center w-full px-8 py-3 mt-8 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                type="submit"
-              >
-                Next
-              </button>
+              {verified ? (
+                <button
+                  disabled={!verified}
+                  onClick={() => setStep(2)}
+                  className="flex items-center justify-center w-full px-8 py-3 mt-8 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  type="submit"
+                >
+                  Next
+                </button>
+              ) : (
+                <a
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  href={Urls.magiceden}
+                  className="flex items-center justify-center w-full px-8 py-3 mt-8 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                  Get a Bonfida Wolf
+                </a>
+              )}
               <button
                 onClick={() => setStep(0)}
                 type="submit"
