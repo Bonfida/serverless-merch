@@ -11,8 +11,10 @@
     "build": "rm -rf && tsc"
   },
   "dependencies": {
+    "@bonfida/name-tokenizer": "^0.0.1",
+    "@bonfida/spl-name-service": "^0.1.40",
     "@solana/spl-token": "^0.2.0",
-    "@solana/web3.js": "^1.36.0",
+    "@solana/web3.js": "^1.47.3",
     "@types/objects-to-csv": "^1.3.1",
     "axios": "^0.26.1",
     "chalk": "4.1.2",
