@@ -20,6 +20,7 @@ import Shipping from "./components/Shipping";
 import Confirmation from "./components/Confirmation";
 import Footer from "./components/Footer";
 import { ToastContainer, toast } from "react-toastify";
+import { SelectNft } from "./components/SelectNft";
 
 import "react-toastify/dist/ReactToastify.css";
 
@@ -67,12 +68,12 @@ function App() {
   const [step, setStep] = useLocalStorageState("step", {
     defaultValue: 0,
   });
-
+  console.log("renderiign");
   return (
     <div className="App">
       <Steps selectedStep={step} />
       {step === 0 && <Hoodie setStep={setStep} />}
-      {step === 1 && <Customization setStep={setStep} />}
+      {step === 1 && <SelectNft setStep={setStep} />}
       {step === 2 && <Shipping setStep={setStep} />}
       {[3, 4].includes(step) && <Confirmation setStep={setStep} />}
       <Footer />

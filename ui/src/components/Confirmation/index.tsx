@@ -5,10 +5,15 @@ import { useEffect } from "react";
 import { Order } from "../../utils/order/type";
 import { encrypt } from "../../utils/rsa";
 import { upload } from "../../utils/ipfs";
-import { Transaction, TransactionInstruction } from "@solana/web3.js";
+import {
+  PublicKey,
+  Transaction,
+  TransactionInstruction,
+} from "@solana/web3.js";
 import {
   createTransferInstruction,
   getAssociatedTokenAddress,
+  createAssociatedTokenAccountInstruction,
 } from "@solana/spl-token";
 import { MEMO_ID } from "../../utils/memo";
 import { toast } from "react-toastify";
@@ -19,6 +24,7 @@ import Loading from "../Loading";
 import { CheckCircleIcon } from "@heroicons/react/solid";
 import Urls from "../../utils/urls";
 import { abbreviate } from "../../utils/transactions";
+import { checkAccountExists, USDC_MINT } from "@bonfida/hooks";
 
 const styles = {
   input:
@@ -27,7 +33,7 @@ const styles = {
   nextButton:
     "flex items-center justify-center w-full px-8 py-3 mt-8 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
   backButton:
-    "flex items-center justify-center w-full px-8 py-3 mt-8 text-base font-medium text-indigo-600 border-2 border-transparent border-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
+    "flex items-center justify-center w-full px-8 py-3 mt-2 text-base font-medium text-indigo-600 border-2 border-transparent border-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
 };
 
 type State = string | undefined | null;
@@ -41,7 +47,9 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
   const { connection } = useConnection();
 
   // Size
-  const [size] = useLocalStorageState<Size | null | undefined>("size");
+  const [size] = useLocalStorageState<Size | null | undefined>("size", {
+    defaultValue: { name: "S" },
+  });
 
   // Customization
   const [domain] = useLocalStorageState<State>("domain");
@@ -119,6 +127,17 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
 
       // Transfer instruction
       const source = await getAssociatedTokenAddress(MINT, publicKey);
+
+      if (!(await checkAccountExists(connection, source))) {
+        const ix = createAssociatedTokenAccountInstruction(
+          publicKey,
+          source,
+          publicKey,
+          new PublicKey(USDC_MINT)
+        );
+        tx.add(ix);
+      }
+
       let ix = createTransferInstruction(source, COLLECT_KEY, publicKey, PRICE);
       tx.add(ix);
 
@@ -157,32 +176,37 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
             </h2>
 
             <div className="grid grid-cols-1 mt-4 gap-y-6">
-              {/* Hoodie details */}
-              <h2 className="text-lg font-medium text-gray-900">
-                Order summary
-              </h2>
-              <Row label="Size" value={size?.name} />
-              {domain && <Row label="Domain" value={domain + ".sol"} />}
-
               {/* Contact details */}
-              <h2 className="pt-3 text-lg font-medium text-gray-900 border-t border-gray-200">
-                Contact details
-              </h2>
-              <Row label="Email" value={email} />
-              <Row label="Phone" value={phone} />
+              <div className="grid grid-cols-1 py-4 border-t border-gray-200 md:grid-cols-12 gap-x-8">
+                <h2 className="col-span-4 py-3 text-lg font-medium text-gray-900">
+                  Contact details
+                </h2>
+                <div className="col-span-8">
+                  <div className="grid w-full grid-cols-2 gap-y-10">
+                    <Row label="Email" value={email} />
+                    <Row label="Phone" value={phone} />
+                  </div>
+                </div>
+              </div>
 
               {/* Shipping details */}
-              <h2 className="pt-3 text-lg font-medium text-gray-900 border-t border-gray-200">
-                Shipping details
-              </h2>
-              <Row label="First name" value={firstName} />
-              <Row label="Last name" value={lastName} />
-              <Row label="Address" value={address} />
-              <Row label="Apartment" value={apartment} />
-              <Row label="City" value={city} />
-              <Row label="Country" value={country} />
-              <Row label="State" value={state} />
-              <Row label="Postal code" value={postalCode} />
+              <div className="grid grid-cols-1 py-4 border-t border-gray-200 md:grid-cols-12 gap-x-8">
+                <h2 className="col-span-4 py-3 text-lg font-medium text-gray-900">
+                  Shipping details
+                </h2>
+                <div className="col-span-8">
+                  <div className="grid w-full grid-cols-2 gap-y-10">
+                    <Row label="First name" value={firstName} />
+                    <Row label="Last name" value={lastName} />
+                    <Row label="Address" value={address} />
+                    <Row label="Apartment" value={apartment} />
+                    <Row label="City" value={city} />
+                    <Row label="Country" value={country} />
+                    <Row label="State" value={state} />
+                    <Row label="Postal code" value={postalCode} />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           {!hasOrdered && connected && (
@@ -210,7 +234,7 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
           )}
           {hasOrdered && (
             <>
-              <div className="flex flex-row justify-center pt-5 mt-10 border-t border-gray-200">
+              <div className="flex flex-row justify-center pt-5 mt-10 space-x-4 border-t border-gray-200">
                 <h2 className="mt-1 text-lg font-bold">Order confirmed</h2>{" "}
                 <CheckCircleIcon className="w-8 text-sm text-green-400" />
               </div>
@@ -233,12 +257,11 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
 
 export default Confirmation;
 
-// TODO finish
 const Row = ({ label, value }: { label: string; value: State }) => {
   return (
     <div>
       <span className={styles.label}>{label}</span>
-      <div className="pt-1 pl-5 text-lg font-bold">{value}</div>
+      <div className="pt-1 text-lg font-bold">{value}</div>
     </div>
   );
 };

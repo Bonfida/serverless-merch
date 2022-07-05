@@ -3,6 +3,9 @@ import { LockClosedIcon } from "@heroicons/react/solid";
 import { useLocalStorageState } from "ahooks";
 import validator from "validator";
 import { toast } from "react-toastify";
+import countries from "countries-list/dist/countries.json";
+import { Country } from "countries-list";
+import { DISALLOWED_COUNTRIES } from "../../utils/countries";
 
 const styles = {
   input:
@@ -11,7 +14,7 @@ const styles = {
   nextButton:
     "flex items-center justify-center w-full px-8 py-3 mt-8 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
   backButton:
-    "flex items-center justify-center w-full px-8 py-3 mt-8 text-base font-medium text-indigo-600 border-2 border-transparent border-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
+    "flex items-center justify-center w-full px-8 py-3 mt-2 text-base font-medium text-indigo-600 border-2 border-transparent border-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
 };
 
 const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
@@ -217,6 +220,14 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                       className={styles.input}
                     >
                       <option></option>
+                      {Object.keys(countries).map((e) => {
+                        // @ts-ignore
+                        const country = countries[e as string] as Country;
+                        if (DISALLOWED_COUNTRIES.includes(e)) {
+                          return null;
+                        }
+                        return <option>{country.name}</option>;
+                      })}
                       <option>United States</option>
                       <option>Canada</option>
                       <option>Mexico</option>
