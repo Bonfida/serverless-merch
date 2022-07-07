@@ -17,6 +17,10 @@ const styles = {
     "flex items-center justify-center w-full px-8 py-3 mt-2 text-base font-medium text-indigo-600 border-2 border-transparent border-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
 };
 
+const Example = ({ value }: { value: string }) => {
+  return <p className="text-xs italic mt-[5px] ml-[5px]">Example: {value}</p>;
+};
+
 const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
   const [email, setEmail] = useLocalStorageState("email", { defaultValue: "" });
   const [firstName, setFirstName] = useLocalStorageState("firstName", {
@@ -40,13 +44,16 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
     defaultValue: "",
   });
   const [phone, setPhone] = useLocalStorageState("phone", { defaultValue: "" });
+  const [discord, setDiscord] = useLocalStorageState("discord", {
+    defaultValue: "",
+  });
 
   const canSubmit =
     email &&
     firstName &&
     lastName &&
     address &&
-    apartment &&
+    // apartment && // Don't make appartment mandatory
     city &&
     country &&
     state &&
@@ -113,6 +120,7 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                     className={styles.input}
                   />
                 </div>
+                <Example value="jason@gmail.com" />
               </div>
             </div>
 
@@ -137,6 +145,7 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                       className={styles.input}
                     />
                   </div>
+                  <Example value="Jason" />
                 </div>
 
                 <div>
@@ -154,6 +163,7 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                       className={styles.input}
                     />
                   </div>
+                  <Example value="Montoya" />
                 </div>
 
                 <div className="sm:col-span-2">
@@ -171,6 +181,7 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                       className={styles.input}
                     />
                   </div>
+                  <Example value="677 Black Oak Hollow Road" />
                 </div>
 
                 <div className="sm:col-span-2">
@@ -187,6 +198,7 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                       className={styles.input}
                     />
                   </div>
+                  <Example value="3rd floor" />
                 </div>
 
                 <div>
@@ -204,6 +216,7 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                       className={styles.input}
                     />
                   </div>
+                  <Example value="Santa Clara" />
                 </div>
 
                 <div>
@@ -228,11 +241,9 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                         }
                         return <option>{country.name}</option>;
                       })}
-                      <option>United States</option>
-                      <option>Canada</option>
-                      <option>Mexico</option>
                     </select>
                   </div>
+                  <Example value="United States" />
                 </div>
 
                 <div>
@@ -250,6 +261,7 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                       className={styles.input}
                     />
                   </div>
+                  <Example value="California" />
                 </div>
 
                 <div>
@@ -267,9 +279,10 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                       className={styles.input}
                     />
                   </div>
+                  <Example value="CA 95054" />
                 </div>
 
-                <div className="sm:col-span-2">
+                <div>
                   <label htmlFor="phone" className={styles.label}>
                     Phone
                   </label>
@@ -284,6 +297,25 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                       className={styles.input}
                     />
                   </div>
+                  <Example value="+14088458654" />
+                </div>
+
+                <div>
+                  <label htmlFor="discord" className={styles.label}>
+                    Discord
+                  </label>
+                  <div className="mt-1">
+                    <input
+                      value={discord}
+                      onChange={(e) => setDiscord(e.target.value)}
+                      type="text"
+                      name="discord"
+                      id="discord"
+                      autoComplete="discord"
+                      className={styles.input}
+                    />
+                  </div>
+                  <Example value="jason#3309" />
                 </div>
               </div>
             </div>

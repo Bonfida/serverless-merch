@@ -66,6 +66,7 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
   const [state] = useLocalStorageState<State>("state");
   const [postalCode] = useLocalStorageState<State>("postalCode");
   const [phone] = useLocalStorageState<State>("phone");
+  const [discord] = useLocalStorageState<State>("discord");
 
   // Transaction signature
   const [signature, setSignature] = useLocalStorageState<string>("signature");
@@ -81,7 +82,7 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
     firstName &&
     lastName &&
     address &&
-    apartment &&
+    // apartment && Don't require appartment
     city &&
     country &&
     state &&
@@ -105,7 +106,8 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
       firstName,
       lastName,
       address,
-      apartment,
+      apartment: apartment || "No appartment specified",
+      discord: discord || "No discord specified",
       city,
       country,
       state,

@@ -10,6 +10,7 @@ export interface Order {
   postalCode: string;
   phone: string;
   email: string;
+  discord: string;
 
   // Order details
   size: string;
