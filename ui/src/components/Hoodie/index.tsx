@@ -35,11 +35,12 @@ export default function Hoodie({
   const [isOpen, setIsOpen] = useState(false);
   const selectedColor = product.colors[0];
   // const [selectedSize, setSelectedSize] = useLocalStorageState("size");
+
   return (
     <>
       <Card>
-        <div className="grid items-start w-full grid-cols-1 mt-10 ml-10 gap-y-8 gap-x-6 sm:grid-cols-12 lg:items-center lg:gap-x-8">
-          <div className="relative overflow-hidden bg-gray-100 rounded-lg aspect-square sm:col-span-4 lg:col-span-6">
+        <div className="grid items-start w-full grid-cols-1 md:mt-10 md:ml-10 gap-y-8 gap-x-6 sm:grid-cols-12 lg:items-center lg:gap-x-8">
+          <div className="w-full h-auto bg-gray-100 rounded-lg aspect-square sm:col-span-4 lg:col-span-6">
             <Carousel
               items={[product.imageSrc, product.imageSrc, product.imageSrc]}
             />
@@ -107,7 +108,7 @@ export default function Hoodie({
                   // disabled={!selectedSize}
                   onClick={() => setStep(1)}
                   type="submit"
-                  className="flex items-center justify-center w-full px-8 py-3 mt-8 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="flex items-center justify-center w-full px-8 py-3 mt-8 text-base font-medium text-white bg-black border border-transparent rounded-[8px] focus:outline-none"
                 >
                   Add to bag
                 </button>

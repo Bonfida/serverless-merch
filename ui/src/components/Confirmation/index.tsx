@@ -1,7 +1,6 @@
-import { useState } from "react";
 import Card from "../Card";
 import { useLocalStorageState } from "ahooks";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Order } from "../../utils/order/type";
 import { encrypt } from "../../utils/rsa";
 import { upload } from "../../utils/ipfs";
@@ -25,15 +24,16 @@ import { CheckCircleIcon } from "@heroicons/react/solid";
 import Urls from "../../utils/urls";
 import { abbreviate } from "../../utils/transactions";
 import { checkAccountExists, USDC_MINT } from "@bonfida/hooks";
+import { DetailsDialog } from "../Details";
 
 const styles = {
   input:
     "block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm",
   label: "block text-sm font-medium text-gray-700",
   nextButton:
-    "flex items-center justify-center w-full px-8 py-3 mt-8 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
+    "flex items-center justify-center w-full px-8 py-3 mt-4 text-base font-medium text-white bg-black border border-transparent rounded-[8px]",
   backButton:
-    "flex items-center justify-center w-full px-8 py-3 mt-2 text-base font-medium text-indigo-600 border-2 border-transparent border-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500",
+    "flex items-center justify-center w-full px-8 py-3 mt-2 text-base font-medium text-black border-2 border-transparent border-black rounded-[8px]",
 };
 
 type State = string | undefined | null;
@@ -43,6 +43,7 @@ interface Size {
 }
 
 const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [checked, setChecked] = useState(false);
   const { publicKey, connected, sendTransaction } = useWallet();
   const { connection } = useConnection();
@@ -215,15 +216,20 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
           </div>
           {!hasOrdered && connected && (
             <>
-              <div className="flex items-center mt-4 ml-2 space-x-4">
+              <div className="flex items-center mt-10 ml-2 space-x-4">
                 <input
+                  className="w-4 h-4 rounded"
                   onChange={() => setChecked((prev) => !prev)}
                   checked={checked}
                   type="checkbox"
                 />
 
-                <p className="font-semibold">
-                  I confirm that the information is correct
+                <p className="text-sm font-semibold">
+                  I confirm that the information is correct and I have read and
+                  agree{" "}
+                  <span onClick={() => setIsOpen(true)} className="underline">
+                    to terms of service
+                  </span>
                 </p>
               </div>
               <button
@@ -267,6 +273,7 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
           )}
         </div>
       </div>
+      <DetailsDialog isOpen={isOpen} setIsOpen={setIsOpen} />
     </Card>
   );
 };

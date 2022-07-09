@@ -70,7 +70,7 @@ export const SelectNft = ({ setStep }: { setStep: (arg: number) => void }) => {
                 <button
                   disabled={!verified}
                   onClick={() => setStep(2)}
-                  className="flex items-center justify-center w-full px-8 py-3 mt-8 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="flex items-center justify-center w-full px-8 py-3 mt-8 text-base font-medium text-white bg-black border border-transparent rounded-[8px]"
                   type="submit"
                 >
                   Next
@@ -80,7 +80,7 @@ export const SelectNft = ({ setStep }: { setStep: (arg: number) => void }) => {
                   rel="noopener noreferrer"
                   target="_blank"
                   href={Urls.magiceden}
-                  className="flex items-center justify-center w-full px-8 py-3 mt-8 text-base font-medium text-white bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                  className="flex items-center justify-center w-full px-8 py-3 mt-8 text-base font-medium text-white bg-black border border-transparent rounded-[8px]"
                 >
                   Get a Bonfida Wolf
                 </a>
@@ -88,7 +88,7 @@ export const SelectNft = ({ setStep }: { setStep: (arg: number) => void }) => {
               <button
                 onClick={() => setStep(0)}
                 type="submit"
-                className="flex items-center justify-center w-full px-8 py-3 mt-2 text-base font-medium text-indigo-600 border-2 border-transparent border-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="flex items-center justify-center w-full px-8 py-3 mt-2 text-base font-medium text-black border-2 border-transparent border-black rounded-[8px]"
               >
                 Back
               </button>
