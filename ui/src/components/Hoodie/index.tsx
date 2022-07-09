@@ -4,15 +4,17 @@ import clsx from "clsx";
 import Card from "../Card";
 import { useState } from "react";
 import { DetailsDialog } from "../Details";
+import cap1 from "../../assets/cap/cap-1.png";
+import { Carousel } from "../Carousel";
 
 const product = {
   name: "Bonfida - Cap",
   price: "$0",
   href: "#",
-  imageSrc: "https://i.imgur.com/5RobrP1.png",
+  imageSrc: cap1,
   imageAlt: "bonfida hoodie",
   colors: [
-    { name: "Black", bgColor: "bg-[#34354a]", selectedColor: "ring-[#34354a]" },
+    { name: "Black", bgColor: "bg-[#021227]", selectedColor: "ring-[#021227]" },
   ],
   sizes: [
     { name: "XXS" },
@@ -36,15 +38,13 @@ export default function Hoodie({
   return (
     <>
       <Card>
-        <div className="grid items-start w-full grid-cols-1 gap-y-8 gap-x-6 sm:grid-cols-12 lg:items-center lg:gap-x-8">
-          <div className="overflow-hidden bg-gray-100 rounded-lg aspect-w-2 aspect-h-3 sm:col-span-4 lg:col-span-5">
-            <img
-              src={product.imageSrc}
-              alt={product.imageAlt}
-              className="object-cover object-center"
+        <div className="grid items-start w-full grid-cols-1 mt-10 ml-10 gap-y-8 gap-x-6 sm:grid-cols-12 lg:items-center lg:gap-x-8">
+          <div className="relative overflow-hidden bg-gray-100 rounded-lg aspect-square sm:col-span-4 lg:col-span-6">
+            <Carousel
+              items={[product.imageSrc, product.imageSrc, product.imageSrc]}
             />
           </div>
-          <div className="sm:col-span-8 lg:col-span-7">
+          <div className="sm:col-span-8 lg:col-span-6">
             <h2 className="text-xl font-medium text-gray-900 sm:pr-12">
               {product.name}
             </h2>
@@ -94,7 +94,7 @@ export default function Hoodie({
                             aria-hidden="true"
                             className={clsx(
                               color.bgColor,
-                              "h-8 w-8 border border-black border-opacity-10 rounded-full"
+                              "h-8 w-8 rounded-full"
                             )}
                           />
                         </RadioGroup.Option>
