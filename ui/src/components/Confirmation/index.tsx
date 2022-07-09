@@ -25,6 +25,7 @@ import Urls from "../../utils/urls";
 import { abbreviate } from "../../utils/transactions";
 import { checkAccountExists, USDC_MINT } from "@bonfida/hooks";
 import { DetailsDialog } from "../Details";
+import { useSmallScreen } from "@bonfida/hooks";
 
 const styles = {
   input:
@@ -43,6 +44,7 @@ interface Size {
 }
 
 const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
+  const smallScreen = useSmallScreen();
   const [isOpen, setIsOpen] = useState(false);
   const [checked, setChecked] = useState(false);
   const { publicKey, connected, sendTransaction } = useWallet();
@@ -266,7 +268,7 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
                   rel="noopener noreferrer"
                   href={Urls.explorerSignaturePrefix + signature}
                 >
-                  {abbreviate(signature)}
+                  {abbreviate(signature, smallScreen ? 7 : undefined)}
                 </a>
               </div>
             </>

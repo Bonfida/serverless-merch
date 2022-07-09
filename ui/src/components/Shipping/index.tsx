@@ -84,7 +84,7 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
     if (!state || !validator.isAlpha(state.split(" ").join(""))) {
       return toast.info("Invalid state");
     }
-    if (!postalCode || !validator.isPostalCode(postalCode, "any")) {
+    if (!postalCode) {
       return toast.info("Invalid postal code");
     }
     if (!phone || !validator.isMobilePhone(phone)) {
