@@ -10,6 +10,9 @@ const steps = [
 export default function Steps({ selectedStep }: { selectedStep: number }) {
   return (
     <nav aria-label="Progress">
+      {/* 
+        eslint-disable-next-line jsx-a11y/no-redundant-roles
+      */}
       <ol
         role="list"
         className="border border-gray-300 divide-y divide-gray-300 rounded-md md:flex md:divide-y-0"

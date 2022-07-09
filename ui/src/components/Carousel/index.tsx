@@ -33,7 +33,7 @@ export const Carousel = ({ items }: { items: string[] }) => {
                   leaveFrom="translate-x-0 hidden"
                   leaveTo="translate-x-full hidden"
                 >
-                  <img className="w-full h-full p-10" src={e} />
+                  <img alt="" className="w-full h-full p-10" src={e} />
                 </Transition.Child>
               </Transition.Child>
             </Transition>

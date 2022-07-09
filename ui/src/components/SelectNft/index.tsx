@@ -27,6 +27,7 @@ export const SelectNft = ({ setStep }: { setStep: (arg: number) => void }) => {
       .filter((e) => hashListRaw.includes(e.account.mint.toBase58()));
     setVerified(!!maybeNfts && maybeNfts?.length > 0);
     setVerifying(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tokenAccounts?.accounts.length, connected]);
 
   return (
