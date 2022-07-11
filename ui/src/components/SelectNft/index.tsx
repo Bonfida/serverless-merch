@@ -34,7 +34,7 @@ export const SelectNft = ({ setStep }: { setStep: (arg: number) => void }) => {
     <Card>
       <div className="grid items-start w-full grid-cols-1 mt-10 md:ml-10 gap-y-8 gap-x-6 sm:grid-cols-12 lg:items-center lg:gap-x-8">
         <div className="overflow-hidden bg-gray-100 rounded-lg aspect-square sm:col-span-4 lg:col-span-6">
-          <img src={wolvesGif} alt="wolves" className="w-[364px] h-[364px]" />
+          <img src={wolvesGif} alt="wolves" />
         </div>
         <div className="sm:col-span-8 lg:col-span-6">
           <h2 className="text-xl font-medium text-gray-900 sm:pr-12">
