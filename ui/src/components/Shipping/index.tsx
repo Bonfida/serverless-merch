@@ -239,7 +239,11 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
                         if (DISALLOWED_COUNTRIES.includes(e)) {
                           return null;
                         }
-                        return <option>{country.name}</option>;
+                        return (
+                          <option key={`country-${country.name}`}>
+                            {country.name}
+                          </option>
+                        );
                       })}
                     </select>
                   </div>

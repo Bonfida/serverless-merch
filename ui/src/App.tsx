@@ -67,7 +67,7 @@ function App() {
   const [step, setStep] = useLocalStorageState("step", {
     defaultValue: 0,
   });
-  console.log("renderiign");
+
   return (
     <div className="App">
       <Steps selectedStep={step} />

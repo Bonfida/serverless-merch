@@ -11,7 +11,7 @@ import { Carousel } from "../Carousel";
 
 const product = {
   name: "Bonfida - Cap",
-  price: "$0",
+  price: "$50",
   href: "#",
   imageSrc: cap1,
   imageAlt: "bonfida hoodie",
@@ -55,6 +55,8 @@ export default function Hoodie({
                 Product information
               </h3>
             </section>
+
+            <p className="font-medium text-gray-900">{product.price}</p>
 
             <section aria-labelledby="options-heading" className="mt-8">
               <h3 id="options-heading" className="sr-only">

@@ -214,6 +214,13 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
                   </div>
                 </div>
               </div>
+
+              {/* Order total */}
+              <div className="grid grid-cols-1 py-4 border-t border-gray-200 md:grid-cols-12 gap-x-8">
+                <h2 className="col-span-4 py-3 text-lg font-bold text-gray-900">
+                  Total: 50 USDC
+                </h2>
+              </div>
             </div>
           </div>
           {!hasOrdered && connected && (

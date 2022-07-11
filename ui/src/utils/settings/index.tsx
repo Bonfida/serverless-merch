@@ -6,4 +6,4 @@ export const MINT = new PublicKey(
 
 export const COLLECT_KEY = new PublicKey(process.env.REACT_APP_COLLECT_FEES!);
 
-export const PRICE = 0; // With decimals
+export const PRICE = 50 * Math.pow(10, 6); // With decimals

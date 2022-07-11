@@ -52,13 +52,14 @@ export const SelectNft = ({ setStep }: { setStep: (arg: number) => void }) => {
               You need to hold at least 1 Bonfida Wolves NFT
             </p>
           </div>
-          <p className="text-black">
+          <div className="text-black">
             {verifying && (
               <div className="flex items-center my-3 space-x-2">
-                <Loading /> <p className="text-sm">Verifying NFT holding...</p>
+                <Loading />{" "}
+                <span className="text-sm">Verifying NFT holding...</span>
               </div>
             )}
-          </p>
+          </div>
           {!connected && (
             <div className="mt-10">
               <WalletConnect />
