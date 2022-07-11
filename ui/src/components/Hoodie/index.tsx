@@ -5,6 +5,8 @@ import Card from "../Card";
 import { useState } from "react";
 import { DetailsDialog } from "../Details";
 import cap1 from "../../assets/cap/cap-1.png";
+import cap2 from "../../assets/cap/cap-2.png";
+import cap3 from "../../assets/cap/cap-3.png";
 import { Carousel } from "../Carousel";
 
 const product = {
@@ -41,9 +43,7 @@ export default function Hoodie({
       <Card>
         <div className="grid items-start w-full grid-cols-1 md:mt-10 md:ml-10 gap-y-8 gap-x-6 sm:grid-cols-12 lg:items-center lg:gap-x-8">
           <div className="w-full h-auto bg-gray-100 rounded-lg aspect-square sm:col-span-4 lg:col-span-6">
-            <Carousel
-              items={[product.imageSrc, product.imageSrc, product.imageSrc]}
-            />
+            <Carousel items={[cap1, cap2, cap3]} />
           </div>
           <div className="sm:col-span-8 lg:col-span-6">
             <h2 className="text-xl font-medium text-gray-900 sm:pr-12">
