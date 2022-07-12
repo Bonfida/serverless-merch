@@ -25,7 +25,7 @@ import Urls from "../../utils/urls";
 import { abbreviate } from "../../utils/transactions";
 import { checkAccountExists, USDC_MINT } from "@bonfida/hooks";
 import { DetailsDialog } from "../Details";
-import { useSmallScreen } from "@bonfida/hooks";
+import { useSmallScreen, useTokenAccounts } from "@bonfida/hooks";
 
 const styles = {
   input:
@@ -45,10 +45,11 @@ interface Size {
 
 const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
   const smallScreen = useSmallScreen();
-  const [isOpen, setIsOpen] = useState(false);
-  const [checked, setChecked] = useState(false);
   const { publicKey, connected, sendTransaction } = useWallet();
   const { connection } = useConnection();
+  const { data: tokenAccounts } = useTokenAccounts(connection, publicKey);
+  const [isOpen, setIsOpen] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   // Size
   const [size] = useLocalStorageState<Size | null | undefined>("size", {
@@ -120,6 +121,12 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
       size: size.name,
       customization: domain || "",
     };
+    const acc = tokenAccounts?.getByMint(MINT);
+
+    if (!acc || Number(acc?.account.amount) < PRICE) {
+      return toast.info("You do not have enough USDC");
+    }
+
     try {
       setLoading(true);
       // Order is encrypted before being uploaded to IPFS
