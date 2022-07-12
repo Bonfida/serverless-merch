@@ -124,7 +124,7 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
     const acc = tokenAccounts?.getByMint(MINT);
 
     if (!acc || Number(acc?.account.amount) < PRICE) {
-      return toast.info("You do not have enough USDC");
+      return toast.info(<p className="text-xs">You do not have enough USDC</p>);
     }
 
     try {

@@ -63,32 +63,32 @@ const Shipping = ({ setStep }: { setStep: (arg: number) => void }) => {
   const handleSubmit = () => {
     console.log(country);
     if (!email || !validator.isEmail(email)) {
-      return toast.info("Invalid email");
+      return toast.info(<p className="text-xs">Invalid email</p>);
     }
     if (!firstName || !validator.isAlpha(firstName.split(" ").join(""))) {
-      return toast.info("Invalid first name");
+      return toast.info(<p className="text-xs">Invalid first name</p>);
     }
     if (!lastName || !validator.isAlpha(lastName.split(" ").join(""))) {
-      return toast.info("Invalid last name");
+      return toast.info(<p className="text-xs">Invalid last name</p>);
     }
     if (!address) {
-      return toast.info("Invalid address");
+      return toast.info(<p className="text-xs">Invalid address</p>);
     }
     // Do not validate apartment
     if (!city || !validator.isAlpha(city.split(" ").join(""))) {
-      return toast.info("Invalid city");
+      return toast.info(<p className="text-xs">Invalid city</p>);
     }
     if (!country) {
-      return toast.info("Invalid country");
+      return toast.info(<p className="text-xs">Invalid country</p>);
     }
     if (!state || !validator.isAlpha(state.split(" ").join(""))) {
-      return toast.info("Invalid state");
+      return toast.info(<p className="text-xs">Invalid state</p>);
     }
     if (!postalCode) {
-      return toast.info("Invalid postal code");
+      return toast.info(<p className="text-xs">Invalid postal code</p>);
     }
     if (!phone || !validator.isMobilePhone(phone)) {
-      return toast.info("Invalid phone number");
+      return toast.info(<p className="text-xs">Invalid phone number</p>);
     }
     setStep(3);
   };
