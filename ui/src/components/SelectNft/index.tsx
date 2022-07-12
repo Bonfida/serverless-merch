@@ -12,11 +12,15 @@ import {
 } from "@heroicons/react/solid";
 import Loading from "../Loading";
 import Urls from "../../utils/urls";
+import { useInterval } from "ahooks";
 
 export const SelectNft = ({ setStep }: { setStep: (arg: number) => void }) => {
   const { connection } = useConnection();
   const { connected, publicKey } = useWallet();
-  const { data: tokenAccounts } = useTokenAccounts(connection, publicKey);
+  const { data: tokenAccounts, refresh } = useTokenAccounts(
+    connection,
+    publicKey
+  );
   const [verified, setVerified] = useState(false);
   const [verifying, setVerifying] = useState(true);
 
@@ -29,6 +33,8 @@ export const SelectNft = ({ setStep }: { setStep: (arg: number) => void }) => {
     setVerifying(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tokenAccounts?.accounts.length, connected]);
+
+  useInterval(refresh, 4_000);
 
   return (
     <Card>
