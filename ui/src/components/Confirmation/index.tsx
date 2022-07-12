@@ -256,7 +256,10 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
                 <p className="text-sm font-semibold">
                   I confirm that the information is correct and I have read and
                   agree{" "}
-                  <span onClick={() => setIsOpen(true)} className="underline">
+                  <span
+                    onClick={() => setIsOpen(true)}
+                    className="underline cursor-pointer"
+                  >
                     to terms of service
                   </span>
                 </p>
