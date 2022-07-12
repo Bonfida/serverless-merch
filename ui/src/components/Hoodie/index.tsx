@@ -57,7 +57,8 @@ export default function Hoodie({
               </h3>
             </section>
             <p className="mt-1 mb-3 text-xs text-black text-opacity-90">
-              Bonfida cap with embroidered logo
+              A premium quality adjustable snapback, carefully embroidered with
+              the Bonfida logo. Exclusively produced for Bonfida Wolf holders.
             </p>
 
             <p className="text-lg font-medium text-gray-900">{product.price}</p>
