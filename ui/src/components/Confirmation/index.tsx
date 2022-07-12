@@ -217,9 +217,22 @@ const Confirmation = ({ setStep }: { setStep: (arg: number) => void }) => {
 
               {/* Order total */}
               <div className="grid grid-cols-1 py-4 border-t border-gray-200 md:grid-cols-12 gap-x-8">
-                <h2 className="col-span-4 py-3 text-lg font-bold text-gray-900">
-                  Total: 50 USDC
-                </h2>
+                <div className="flex justify-between col-span-12 my-1">
+                  <p className="text-gray-600">Subtotal</p>
+                  <p className="font-medium text-gray-900">50 USDC</p>
+                </div>
+
+                <div className="flex justify-between col-span-12 my-1">
+                  <p className="text-gray-600">Shipping</p>
+                  <p className="font-medium text-gray-900">0 USDC</p>
+                </div>
+
+                <div className="col-span-12 h-[1px] bg-gray-200 my-2" />
+
+                <div className="flex justify-between col-span-12">
+                  <p className="font-bold text-gray-900">Order total</p>
+                  <p className="font-bold text-indigo-500">50 USDC</p>
+                </div>
               </div>
             </div>
           </div>
