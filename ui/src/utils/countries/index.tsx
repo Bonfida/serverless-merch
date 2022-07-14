@@ -22,5 +22,4 @@ export const DISALLOWED_COUNTRIES = [
   "LY", // Lybia
   "SO", // Somalia
   "YD", // Yemen
-  "TH", // Thailand
 ];
