@@ -59,6 +59,10 @@ export default function Hoodie({
             <p className="mt-1 mb-3 text-xs text-black text-opacity-90">
               A premium quality adjustable snapback, carefully embroidered with
               the Bonfida logo. Exclusively produced for Bonfida Wolf holders.
+              <span className="font-bold">
+                {" "}
+                Orders available until July 31st.
+              </span>
             </p>
 
             <p className="text-lg font-medium text-gray-900">{product.price}</p>

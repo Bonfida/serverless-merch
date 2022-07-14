@@ -1087,6 +1087,11 @@
     eip1193-provider "^1.0.1"
     js-sha3 "^0.8.0"
 
+"@bonfida/components@^0.0.2":
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/@bonfida/components/-/components-0.0.2.tgz#c8964fbf25f3831defb7203ae8214a89632118d6"
+  integrity sha512-4I2HrvLe755cEuP1EpllfEgJ4WfKkt2NB360MyiHvcB1LpMggtH6QjI8e6M6h+N4nbRlCyeLSJUJjGQaLJ5WyQ==
+
 "@bonfida/hooks@^0.0.2":
   version "0.0.2"
   resolved "https://registry.yarnpkg.com/@bonfida/hooks/-/hooks-0.0.2.tgz#1110f492a889b0a20bcc8635f3cf582d6657ed12"

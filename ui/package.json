@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@bonfida/components": "^0.0.2",
     "@bonfida/hooks": "^0.0.2",
     "@bonfida/spl-name-service": "^0.1.30",
     "@headlessui/react": "^1.6.5",
